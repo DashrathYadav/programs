@@ -1,0 +1,1 @@
+{"name":"Local: build_heap","url":"c:\\Users\\sandi\\Desktop\\c++\\programs\\heaps\\build_heap.cpp","tests":[{"id":1668332545801,"input":"11\n1 3 5 4 6 13 10 9 8 15 17","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"c:\\Users\\sandi\\Desktop\\c++\\programs\\heaps\\build_heap.cpp","group":"local","local":true}

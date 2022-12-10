@@ -1,0 +1,1 @@
+{"name":"Local: dijkastra_pq","url":"c:\\Users\\sandi\\Desktop\\c++\\programs\\graph\\dijkastra_pq.cpp","tests":[{"id":1670470587518,"input":"1\n2 1\n0 1 9\n0","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"c:\\Users\\sandi\\Desktop\\c++\\programs\\graph\\dijkastra_pq.cpp","group":"local","local":true}
