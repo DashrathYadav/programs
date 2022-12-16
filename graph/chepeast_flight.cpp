@@ -3,59 +3,65 @@
 using namespace std;
 
 // } Driver Code Ends
+// c
 class Solution {
   public:
+
+int num=1e8;
+
+
     int CheapestFLight(int n, vector<vector<int>>& flights, int src, int dst, int K)  {
         // Code here
-        int N =flights.size();
-        int k=K+1;
-         vector<pair<int,int>>adj[n];
+        K+=1;
+          pair<int,pair<int,int>>p;
+          p.first=0;
+          p.second.first=K;
+          p.second.second=src;
 
-         for(int i=0;i<N;i++)
+        vector<pair<int,int>>adj[n];
+        int N=flights.size();
+        for(int i=0;i<N;i++)
         {
             adj[flights[i][0]].push_back({flights[i][1],flights[i][2]});
         }
+       vector<int>v(n,1e8);
+        v[src]=0;
 
-        vector<int>cost(n,INT_MAX);
-        queue<pair<int,int>>q;
-        q.push({src,k});
-        cost[src]=0;
-
-        // for(auto it: adj)
-        // {
-        //     for(auto i : it)
-        //     cout<<i.first<<" "<<i.second<<"   ";
-
-        // }
-        // cout<<endl;
-        while(!q.empty())
-        {
-            pair<int,int> node=q.front();
-            q.pop();
-         //   cout<<node.first<<" "<<node.second<<endl;            
-            for(auto it: adj[node.first])
+            queue<pair<int,pair<int,int>>>pq;
+            pq.push(p);
+            while(!pq.empty())
             {
-               // cout<<it.second<<" "<<cost[node.first]<<" "<<cost[it.first]<<endl;
-                if( it.second + cost[node.first] < cost[it.first]  && node.second > 0)
+                pair<int,pair<int,int>>np=pq.front();
+                pq.pop();
+              
+                if(np.second.first <=0) 
+                continue;
+
+                for(auto it : adj[np.second.second])
                 {
-                    
+                    int cost=it.second+v[np.second.second];
+                  //  cout<<v[it.first]<<endl;
+                   v[it.first]=min(cost,v[it.first]);
 
-                    q.push({it.first,node.second-1});
-                    
-                    cost[it.first]=cost[node.first]+it.second;
+                 //  cout<<cost<<endl;
+                 
+
+                    pq.push({v[it.first],{np.second.first-1,it.first}});
+
                 }
+
+                
             }
-        }
-//         for(int i=0;i<n;i++)
-//         cout<<cost[i]<<" ";
-//         cout<<endl;
-// cout<<cost[dst];
-// cout<<endl;
-return cost[dst];
+            // for(auto it: v )
+            // cout<<it<<' ';
 
+            //cout<<endl;
+            if(v[dst]==num)
+        return -1;
+        return v[dst];
     }
-};
 
+};
 
 //{ Driver Code Starts.
 int main() {
