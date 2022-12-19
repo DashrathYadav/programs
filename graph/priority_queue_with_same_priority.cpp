@@ -15,9 +15,7 @@ while(!pq.empty())
     auto node= pq.top();
 
     cout<<node.first<< " "<<node.second.first<<" "<<node.second.second<<" "<<endl;
-
 pq.pop();
+
 }
-
-
 }
