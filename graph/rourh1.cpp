@@ -1,66 +1,139 @@
-#include<bits/stdc++.h>
+//{ Driver Code Starts
+#include <bits/stdc++.h>
 using namespace std;
-#define ll long long
 
 
+// } Driver Code Ends
+// User function Template for C++
 
-void solve()
+class DisjointSet
 {
-	ll n;
-	cin>>n;
-	string str;
-	cin>>str;
-	vector<pair<char,ll>>a;
-ll maxi=1;
-a.push_back({str[0],1});
-ll cnt=0;
-	for(ll i=1;i<n;i++)
-	{
-		if(str[i]==str[i-1])
-		{
-			a[cnt].second++;
-		}
-		else{
+    vector<int> size, parent;
+    int N;
+public:
+    DisjointSet(int n)
+    {
+        N=n;
+        size.resize(N + 1,1);
+        parent.resize(N + 1);
 
-			a.push_back({str[i],1});
-			cnt++;
-		}
-	}
-	
-	sort(a.begin(),a.end());
+        for (int i = 0; i <= N; i++)
+            parent[i] = i;
+    }
 
-for(ll i=0;i<a.size();i++)
+    int findParent(int u)
+    {
+        if (parent[u] == u)
+            return u;
+
+        return parent[u] = findParent(parent[u]);
+    }
+
+    void UnionBySize(int u, int v)
+    {
+
+        int sp_u = findParent(u);
+        int sp_v = findParent(v);
+
+            if(sp_u==sp_v)
+            return ;
+
+        if (size[sp_u] < size[sp_v])
+        {
+            parent[sp_u] = sp_v;
+            size[sp_v]+=size[sp_u];
+
+        }
+        else if (size[sp_u] >= size[sp_v])
+        {
+            parent[sp_v] = sp_u;
+            size[sp_u]+=size[sp_v];
+        }
+        
+    }
+
+    void print_size(){
+
+        for(int i=0;i<=N;i++)
+        {
+            cout<<size[i]<<" ";
+        }
+        cout<<endl;
+    }
+
+
+void parent_print()
 {
-	if(a[i].second > maxi)
-	{
-		maxi=a[i].second;
-	}
-}
-maxi=maxi-1;
-
-for(ll i=1;i<a.size();i++)
-{
-		if(a[i-1].first == a[i].first)
-		{
-			ll m = min(a[i-1].second,a[i].second);
-					if(m > maxi)
-					maxi=m;
-		}
+    
+    for(int i=0;i<=N;i++)
+    {
+       cout<<findParent(i)<<" ";
+    }
+    cout<<endl;
 }
 
-cout<<maxi<<endl;
+};
+
+class Solution {
+  public:
+    int Solve(int n, vector<vector<int>>& edge) {
+        
+		DisjointSet U(n);
+int cnt=0;  // to count no of edges that are alredy a part of component 
+			//but reappera so we count it to make diconnected node connected  
+  for(auto it: edge)
+  {
+	int u=it[0];
+	int v=it[1];
+	if(U.findParent(u)==U.findParent(v))
+	cnt++;
+
+	U.UnionBySize(u,v);
 
 
+  }      
+ set<int>s;
+  for(int i=0;i<n;i++)
+  {
+	s.insert(U.findParent(i));
+  }
+
+  int disconnected_component=s.size()-1;
+  
+  if(cnt < disconnected_component)
+  return -1;
+
+  return disconnected_component;
+        
+        
+        
+        
+    }
+};
+
+//{ Driver Code Starts.
+
+int main() {
+    int t;
+    cin >> t;
+    while (t--) {
+        int n, m;
+        cin >> n >> m;
+        vector<vector<int>> adj;
+
+        for (int i = 0; i < m; ++i) {
+            vector<int> temp;
+            for (int j = 0; j < 2; ++j) {
+                int x;
+                cin >> x;
+                temp.push_back(x);
+            }
+            adj.push_back(temp);
+        }
+
+        Solution Obj;
+        cout << Obj.Solve(n, adj) << "\n";
+    }
+    return 0;
 }
-
-int  main()
-{
-	ll t;
-	cin>>t;
-	while (t--)
-	{
-		
-		solve();
-	}
-	
-}
+// } Driver Code Ends
