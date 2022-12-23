@@ -1,20 +1,25 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-int sum(int n)
+/*
+// 1+2+3+4
+ie 1234
+sum(n/10)+n%10;
+*/
+
+
+int sum_digit(int n)
 {
     if(n==0)
     return 0;
 
-    return sum(n-1)+n;
+    return sum_digit(n/10)+n%10;
 
 }
 
 int main()
 {
-    int n;
-    cin>>n;
 
-cout<<sum(n);
+cout<<sum_digit(784);
 
 }
