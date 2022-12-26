@@ -89,6 +89,93 @@ vector<string>ans;
     return ans;
 }
 
+/*
+h1h1v1v1
+h1h1v2
+h1v1h1v1
+h1v1v1h1
+h1v1d1
+h1d1v1
+h1v2h1
+v1h1h1v1
+v1h1v1h1
+v1h1d1
+v1v1h1h1
+v1v1h2
+v1d1h1
+v1h2v1
+d1h1v1
+d1v1h1
+d1d1
+h2v1v1
+h2v2
+v2h1h1
+v2h2
+d2
+*/
+
+
+void get_path(int r,int c,int k,int n,int m,string d)
+{
+        if(r==n-1 && c==m-1)
+        {
+            cout<<d<<endl;
+        }
+
+vector<string>ans;
+        for(int i=1;i<=k;i++)
+        {
+        
+            vector<string>path;
+            if(c+i <= m-1)
+            {
+                  char ch=i+'0';
+                    string it= "h"+ch;
+            get_path(r,c+i,k,n,m,d+'h'+to_string(i));
+            }
+
+            if(r+i <=n-1)
+            {
+                 char ch=i+'0';
+                    string it="v"+ch;
+                get_path(r+i,c,k,n,m,d+'v'+to_string(i));
+              
+        }
+
+            if(r+i <= n-1 && c+i <=m-1)
+            {
+                
+                get_path(r+i,c+i,k,n,m,d+'d'+to_string(i));
+                
+            }
+}
+
+}
+/*
+h1h1v1v1
+h1h1v2
+h1v1h1v1
+h1v1v1h1
+h1v1d1
+h1d1v1
+h1v2h1
+v1h1h1v1
+v1h1v1h1
+v1h1d1
+v1v1h1h1
+v1v1h2
+v1d1h1
+v1h2v1
+d1h1v1
+d1v1h1
+d1d1
+h2v1v1
+h2v2
+v2h1h1
+v2h2
+d2
+*/
+
 
 
 int main()
@@ -99,8 +186,38 @@ cin>>n>>m>>k;
 
     vector<string>ans=get_paths(0,0,k,n,m);
 
+    
     for(auto it: ans)
     cout<<it<<endl;
 
+cout<<endl<<endl;
+get_path(0,0,k,n,m,"");
+
  return 0;
 }
+
+
+
+/*
+h1h1v1v1                    
+h1h1v2
+h1v1h1v1
+h1v1v1h1
+h1v1d1
+h1d1v1
+h1v2h1
+v1h1h1v1
+v1h1v1h1
+v1h1d1
+v1v1h1h1
+v1v1h2
+v1d1h1
+v1h2v1
+d1h1v1
+d1v1h1
+d1d1
+h2v1v1
+h2v2
+v2h1h1
+v2h2
+d2*/
