@@ -35,18 +35,27 @@ Sample Output
 using namespace std;
 
 
-int main()
+int  using_recursion(int n,vector<int>Possible_jumps,int stair_no)
+{
+    if(stair_no==n)
+    return 1;
+
+    if(stair_no > n)
+    return 0;
+    int cnt_ways=0;
+        for(int j=1;j<=Possible_jumps[stair_no];j++)
+        {
+            cnt_ways+= using_recursion(n,Possible_jumps,stair_no+j);
+        }
+        cout<<"for "<< stair_no<< "ans is"<<cnt_ways<<endl;
+        return cnt_ways;
+}
+
+
+void using_dp(int n,vector<int>Possible_jumps)
 {
 
-    int n;
-    cin>>n;
-    vector<int>Possible_jumps(n+1,0);
-    for(int i=0;i<=n;i++)
-    {
-        cin>>Possible_jumps[i];
-    }
-
-    vector<int>dp(n+1,-1);
+vector<int>dp(n+1,-1);
     dp[n]=1;
 
     for(int i=n-1;i>=0;i--)
@@ -70,5 +79,28 @@ int main()
 
     cout<<dp[0]<<endl;
 
+
+
+}
+
+int main()
+{
+
+    int n;
+    cin>>n;
+    vector<int>Possible_jumps(n+1,0);
+    for(int i=0;i<=n;i++)
+    {
+        cin>>Possible_jumps[i];
+    }
+    cout<<"ans using dp"<<endl;
+    using_dp(n,Possible_jumps);
+
+    cout<<"ans using recursion"<<endl;
+    cout<<using_recursion(n,Possible_jumps,0)<<endl;
+
+
+
+    
  return 0;
 }
