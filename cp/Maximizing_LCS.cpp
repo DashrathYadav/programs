@@ -6,8 +6,29 @@ using namespace std;
 #include <bits/stdc++.h>
 using namespace std;
 
+char* substring(char *destination, const char *source, int beg, int n)
+{
+    // extracts `n` characters from the source string starting from `beg` index
+    // and copy them into the destination string
+    while (n > 0)
+    {
+        *destination = *(source + beg);
+ 
+        destination++;
+        source++;
+        n--;
+    }
+ 
+    // null terminate destination string
+    *destination = '\0';
+ 
+    // return the destination string
+    return destination;
+}
+
+
 /* Returns length of LCS for X[0..m-1], Y[0..n-1] */
-int lcs(string X, string Y, int m, int n)
+int lcs(char * X, char* Y, int m, int n)
 {
 	// intitalizing a matrix of size (m+1)*(n+1)
 	int L[m + 1][n + 1];
@@ -38,13 +59,16 @@ void solve(){
 
 int n;
 cin>>n;
-string str;
-cin>>str;
+char str[n];
+char *s=str;
+scanf("%s",str);
+// string str;
+// cin>>str;
 int maxi=0;
 int mid=n/2;
 int p=mid;
 int q=mid+1;
-for(int i=mid,j=mid-1;i<n-1 && j>=0;i++,j--)
+for(int i=0;i<n;i++)
 {
     int l1=i+1;
     int l2=n-l1;
@@ -52,27 +76,26 @@ for(int i=mid,j=mid-1;i<n-1 && j>=0;i++,j--)
     if( maxi >=min(l1,l2) )
     continue;
 
-  //  cout<<l1<<" "<<l2<<endl;
-    
-    string str1=str.substr(0,i+1);
-    string str2=str.substr(i+1);
-
-    int m=str1.size();
-    int n=str2.size();
+   cout<<l1<<" "<<l2<<endl;
+    char str1[l1];
+    char str2[l2];
+    *str1=substring(str1,str,0,l1);
+     substring(str2,str,i+1,l2);
+printf("%s\n",str1);
+printf("%s\n",str2);
 //cout<<m<<" "<<n<<endl;
 
-    if( m<n )
+    if( l1<l2 )
     {
-        reverse(str1.begin(),str1.end());
+        strrev(str1);
     }
     else{
-        reverse(str2.begin(),str2.end());
-
+        strrev(str2);
     }
-          maxi=max(maxi,lcs(str1,str2,m,n));
+          maxi=max(maxi,lcs(str1,str2,l1,l2));
 
 }
-cout<<maxi<<endl;
+cout<<maxi<<"\n";
 
 //  cout<<lcs(X, Y, m, N)<<endl;
 return;
