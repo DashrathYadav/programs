@@ -1,0 +1,1 @@
+{"name":"Local: minimum_no_of_laptops","url":"c:\\Users\\sandi\\Desktop\\c++\\programs\\heaps\\minimum_no_of_laptops.cpp","tests":[{"id":1672470483003,"input":"1\n3\n1 2 3\n4 4 6","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"c:\\Users\\sandi\\Desktop\\c++\\programs\\heaps\\minimum_no_of_laptops.cpp","group":"local","local":true}
