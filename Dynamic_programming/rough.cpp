@@ -1,56 +1,41 @@
+// C++ program using to find length of the
+// longest common substring recursion
+#include <iostream>
 
-#include<bits/stdc++.h>
 using namespace std;
 
+string X, Y;
 
-int maxChocoUtil(int i, int j1, int j2, int n, int m, vector < vector < int >> 
-& grid, vector < vector < vector < int >>> & dp) {
-  if (j1 < 0 || j1 >= m || j2 < 0 || j2 >= m)
-    return -1e9;
+// Returns length of function f
+// or longest common substring
+// of X[0..m-1] and Y[0..n-1]
+int lcs(int i, int j, int count)
+{
 
-  if (i == n - 1) {
-    if (j1 == j2)
-      return grid[i][j1];
-    else
-      return grid[i][j1] + grid[i][j2];
-  }
+	if (i == 0 || j == 0)
+		return count;
 
-  if (dp[i][j1][j2] != -1)
-    return dp[i][j1][j2];
-
-  int maxi = INT_MIN;
-  for (int di = -1; di <= 1; di++) {
-    for (int dj = -1; dj <= 1; dj++) {
-      int ans;
-      if (j1 == j2)
-        ans = grid[i][j1] + maxChocoUtil(i + 1, j1 + di, j2 + dj, n, m, grid, dp);
-      else
-        ans = grid[i][j1] + grid[i][j2] + maxChocoUtil(i + 1, j1 + di, j2 + dj, n,
-        m, grid, dp);
-      maxi = max(maxi, ans);
-    }
-  }
-  return dp[i][j1][j2] = maxi;
+	if (X[i - 1] == Y[j - 1]) {
+		count = lcs(i - 1, j - 1, count + 1);
+	}
+	count = max(count,
+				max(lcs(i, j - 1, 0),
+					lcs(i - 1, j, 0)));
+	return count;
 }
 
-int maximumChocolates(int n, int m, vector < vector < int >> & grid) {
+// Driver code
+int main()
+{
+	int n, m;
 
-  vector < vector < vector < int >>> dp(n, vector < vector < int >> (m, vector < int
-  > (m, -1)));
+	X = "aaa";
+	Y = "aaa";
 
-  return maxChocoUtil(0, 0, m - 1, n, m, grid, dp);
-}
+	n = X.size();
+	m = Y.size();
 
-int main() {
+	cout << lcs(n, m, 0);
 
-   vector<vector<int> > matrix{
-      {2,3,1,2},
-      {3,4,2,2},
-      {5,6,3,5},
-  };
-
-  int n = matrix.size();
-  int m = matrix[0].size();
-
-  cout << maximumChocolates(n, m, matrix);
+	return 0;
 }
